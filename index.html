@@ -1,215 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>WKForce Onboarding</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9F%A3%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-<style>
-:root{--bg:#131017;--card:#1a1720;--line:#232027;--field:#131019;--fline:#2b2531;--pri:#9d75d6;--txt:#ece8f2;--mut:#8a8594;--hint:#7d7886;--req:#e5484d;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--txt);font:400 14px/1.4 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-i{display:inline-flex;width:1em;height:1em;flex:none;font-style:normal}
-i svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-button{font:inherit;color:inherit;cursor:pointer}
-:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
-.wrap{padding:48px 16px 64px}
-.tabs{max-width:720px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px;display:flex;justify-content:center;gap:4px;overflow-x:auto}
-.tab{display:flex;align-items:center;gap:6px;border:0;background:none;color:var(--mut);padding:6px 12px;border-radius:5px;font-size:11.5px;line-height:17px;font-weight:500;white-space:nowrap;transition:background .15s,color .15s}
-.tab:hover{color:var(--txt)}
-.tab[aria-selected=true]{background:#a074d6;color:#fff;font-weight:600}
-.tab i{font-size:11px}
-.card{max-width:720px;margin:40px auto 0;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:42px 43px 30px}
-.card.wide{max-width:860px;padding:32px 33px 26px}
-.card[hidden]{display:none}
-.hd{display:flex;gap:16px;align-items:center;margin-bottom:22px}
-.ic{width:44px;height:44px;border-radius:4px;background:#9d74da;display:grid;place-items:center;color:#fff;font-size:20px;flex:none}
-.ic.o{background:#2a1f3d;border:1px solid #6b4aa3;color:#b08ae6}
-h2{margin:0;font-size:20px;font-weight:700;line-height:1.2}
-.hd p{margin:2px 0 0;font-size:12.5px;color:var(--mut)}
-.f{margin-bottom:22px}
-label,.lb{display:flex;justify-content:flex-start;font-size:12px;color:#9a95a3;margin-bottom:8px}
-label b,.lb b{color:var(--req);font-weight:500;margin-left:3px}
-label small,.lb small{font-size:10.5px;color:var(--mut);margin-left:auto}
-.in,select.in{width:100%;height:36px;background:var(--field);border:1px solid var(--fline);border-radius:4px;color:var(--txt);padding:0 12px;font:inherit;font-size:13.5px}
-.in::placeholder{color:#6e6978}
-select.in,.chip select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b5b0bd' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.hint{display:flex;justify-content:space-between;margin:7px 0 0;font-size:11.5px;color:var(--hint)}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.photo{position:relative;width:106px;height:106px;margin:0 auto 26px}
-.photo button.pb{width:100%;height:100%;border:1px solid #e8e4ee;border-radius:3px;background:var(--bg) center/cover;color:#8e8898;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11.5px}
-.photo button.pb i{font-size:18px}
-.photo.has button.pb>*{display:none}
-.plus{position:absolute;right:-1px;bottom:-1px;width:24px;height:24px;background:var(--pri);color:#fff;display:grid;place-items:center;font-size:13px;border-radius:2px 0 3px 0;pointer-events:none}
-.ft{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #55525c;margin-top:24px;padding-top:16px}
-.back{background:none;border:0;color:var(--mut);display:flex;align-items:center;gap:8px;font-size:13px;padding:10px 6px}
-.back:disabled{opacity:.5;cursor:default}
-.next{background:var(--pri);border:0;border-radius:4px;color:#fff;font-weight:600;font-size:13px;padding:13px 34px;display:flex;align-items:center;gap:8px;transition:filter .15s}
-.next:hover{filter:brightness(1.08)}
-.sq{width:30px;height:30px;margin-top:4px;background:#120f1a;border:1px solid var(--fline);border-radius:4px;color:#cfc9d8;display:grid;place-items:center;font-size:13px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.chips:empty{display:none}
-.chip{display:inline-flex;align-items:center;background:#1c1530;border:1px solid #cfc7dc;border-radius:4px;color:#b08ae6;font-size:11.5px;font-weight:500;height:28px;padding:0 9px;gap:9px}
-.chip select{background-color:transparent;border:0;border-left:1px solid #4a4056;color:#b08ae6;font:inherit;padding:0 18px 0 9px;height:16px;background-position:right 0 center;background-size:9px}
-.chip select option{background:var(--card);color:var(--txt)}
-.chip>button{background:none;border:0;color:#b08ae6;font-size:14px;line-height:1;padding:0}
-.cnt{margin:8px 0 0;font-size:10.5px;color:var(--mut)}
-.cnt+.chips{margin-top:3px}
-.drop{background:var(--field);border:1px dashed #3a3442;border-radius:4px;height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;color:var(--mut);font-size:11.5px;text-align:center;cursor:pointer;width:100%;transition:border-color .15s}
-.drop.on,.drop:hover{border-color:var(--pri)}
-.drop i{font-size:26px;color:#5b5663;margin-bottom:10px}
-.drop strong{color:var(--txt);font-size:12.5px;font-weight:600}
-.file{display:flex;align-items:center;gap:12px;border:1px solid var(--fline);border-radius:4px;background:#17131c;padding:10px 12px;margin-top:14px}
-.file .th{width:30px;height:30px;border-radius:4px;background:#1e141f;color:#a074d6;display:grid;place-items:center;font-size:15px}
-.file .nm{flex:1;min-width:0}
-.file b{display:block;font-size:12.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.file small{font-size:10.5px;color:var(--mut)}
-.badge{background:#093a27;color:#3fb27f;font-size:9.5px;padding:3px 10px;border-radius:3px}
-.file button{background:none;border:0;color:var(--mut);font-size:14px}
-.lhd{display:flex;justify-content:space-between;align-items:center;margin:26px 0 10px;font-size:12px;color:#9a95a3}
-.lhd button{background:none;border:0;color:#a074d6;font-weight:500;font-size:12px;display:flex;align-items:center;gap:5px}
-.lk{margin-bottom:14px}
-.lk .lb{justify-content:flex-start;align-items:center;gap:6px;margin-bottom:6px;font-size:11px}
-.lk .lb i{color:#a074d6;font-size:13px}
-.lk .lb em{font:700 10px Inter,sans-serif;color:#a074d6}
-.lk .w{position:relative}
-.lk .in{padding-right:40px;color:var(--txt)}
-.lk .w a{position:absolute;right:11px;top:50%;transform:translateY(-50%);color:var(--mut);font-size:14px;display:flex}
-.lb.bd{font-weight:600;color:#8e8998}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
-.opts.three{grid-template-columns:repeat(3,1fr);gap:12px}
-.opt{display:flex;align-items:center;gap:14px;border:1px solid var(--fline);border-radius:4px;background:var(--card);padding:14px 12px;cursor:pointer;margin:0;color:inherit;transition:border-color .15s,background .15s}
-.opt:has(input:checked){border-color:var(--pri);background:#211a2e}
-.opt input{width:13px;height:13px;margin:0;accent-color:var(--pri)}
-.opt b{display:block;font-size:12.5px;font-weight:600}
-.opt small{font-size:11px;color:var(--mut)}
-.opts.three .opt{justify-content:center;gap:9px;height:44px;font-size:12.5px;font-weight:600}
-.sec{font-size:12px;font-weight:600;color:#8e8998;margin:0 0 12px}
-.cur{position:relative}
-.cur span{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--mut);font-size:12px}
-.cur .in{padding-left:34px;color:#b0aab8}
-.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--pri);color:#fff;padding:12px 22px;border-radius:6px;font-weight:600;font-size:13px;opacity:0;pointer-events:none;transition:all .25s}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-@media (max-width:620px){.card,.card.wide{padding:28px 20px 22px}.row,.opts{grid-template-columns:1fr}.opts.three{grid-template-columns:1fr}.tabs{justify-content:flex-start}.next{padding:13px 22px}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WKforce — Verified outcomes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; color: #111827; font-family: Inter, sans-serif; background: #fff; }
+    .wp-nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #E5E7EB; }
+    .container { width: min(1140px, calc(100% - 2rem)); margin: auto; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; }
+    .logo { height: 30px; }
+    .nav-actions, .actions, .trust-grid, .steps, .footer-inner { display: flex; align-items: center; }
+    .nav-actions, .actions { gap: .75rem; }
+    a { text-decoration: none; }
+    .btn { display: inline-block; border-radius: .5rem; padding: .75rem 1.5rem; font-weight: 600; font-size: 1rem; border: 1px solid transparent; cursor: pointer; }
+    .btn-link { color: #111827; padding-left: .75rem; padding-right: .75rem; }
+    .btn-primary { color: #fff; background: #5C2D91; border-color: #5C2D91; }
+    .btn-outline-primary { color: #5C2D91; background: transparent; border-color: #5C2D91; }
+    .btn-light { color: #5C2D91; background: #fff; }
+    .btn-outline-light { color: #fff; background: transparent; border-color: #fff; }
+    .hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 5vw, 4rem); }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 6px; background: #F5F2FA; color: #5C2D91; font-size: .8rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; }
+    h1 { font-size: clamp(2.1rem, 4.5vw, 3.4rem); font-weight: 800; line-height: 1.12; letter-spacing: -.02em; margin: 1rem 0 .75rem; }
+    .accent { background: linear-gradient(120deg, #5C2D91, #7A4BBF); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .sub { font-size: clamp(1rem, 1.4vw, 1.15rem); color: #4b5563; line-height: 1.65; max-width: 34rem; }
+    .small { color: #6b7280; font-size: .875rem; }
+    .preview { background: linear-gradient(160deg, #F5F0FB 0%, #EBE1F7 100%); border: 1px solid #EBE1F7; border-radius: 20px; padding: clamp(1rem, 2.5vw, 2rem); }
+    .window { background: #fff; border-radius: 14px; box-shadow: 0 18px 44px rgba(76, 36, 122, .12), 0 4px 12px rgba(76, 36, 122, .06); overflow: hidden; }
+    .chrome { display: flex; gap: 8px; align-items: center; padding: 1rem; border-bottom: 1px solid #E5E7EB; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #6b7280; opacity: .25; }
+    .address { height: 14px; max-width: 220px; width: 60%; border: 1px solid #E5E7EB; background: #F9FAFB; border-radius: 999px; margin-left: 8px; }
+    .workflow { display: grid; grid-template-columns: 64px 1fr; gap: 1rem; padding: 1rem; }
+    .rail { border: 1px solid #E5E7EB; border-radius: .25rem; padding: .5rem; display: flex; flex-direction: column; gap: .5rem; }
+    .rail span { height: 10px; border-radius: .25rem; background: #6b7280; opacity: .1; }
+    .rail span:first-child { background: #5C2D91; opacity: .5; }
+    .work h3 { margin: 0 0 .5rem; font-size: .875rem; }
+    .criteria { border: 1px solid #E5E7EB; border-radius: .75rem; padding: .75rem; }
+    .criteria-row { display: flex; justify-content: space-between; gap: .5rem; padding: .45rem 0; border-bottom: 1px solid #E5E7EB; font-size: .7rem; }
+    .criteria-row:last-child { border-bottom: 0; }
+    .verified { color: #5C2D91; font-weight: 700; }
+    .package-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-top: .75rem; }
+    .package-card { min-width: 0; border: 1px solid #E5E7EB; border-radius: .75rem; padding: .75rem; }
+    .package-card strong { display: block; font-size: .7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .package-card span { display: block; height: 8px; margin-top: .5rem; border-radius: 999px; background: #6b7280; opacity: .35; }
+    .package-card span:last-child { width: 68%; }
+    .feature { background: #fff; padding: 1rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(76, 36, 122, .06); margin-top: 1rem; min-height: 88px; }
+    .wp-slide { animation: wpFadeIn .4s ease; }
+    @keyframes wpFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .feature-icon { width: 44px; height: 44px; border-radius: .75rem; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; background: #F5F2FA; color: #5C2D91; }
+    .feature-content { display: flex; align-items: flex-start; gap: .75rem; }
+    .dots { display: flex; justify-content: center; gap: .5rem; margin-top: .75rem; height: 6px; }
+    .dot-button { width: 6px; height: 6px; padding: 0; border: 0; border-radius: 999px; background: #6b7280; opacity: .25; cursor: pointer; transition: width .3s ease, background-color .3s ease; }
+    .dot-button.active { width: 18px; background: #5C2D91; opacity: 1; }
+    .talent-note { color: #6b7280; font-size: .875rem; line-height: 1.6; margin-top: 1rem; }
+    .feature-title { font-size: .875rem; font-weight: 700; margin-bottom: .25rem; }
+    .feature-body { color: #6b7280; font-size: .875rem; line-height: 1.6; }
+    .trust { border-top: 1px solid #E5E7EB; border-bottom: 1px solid #E5E7EB; background: #F9FAFB; padding: 1rem 0; }
+    .trust-grid { justify-content: space-between; gap: 1rem; }
+    .trust-item { flex: 1; text-align: center; color: #4b5563; font-size: .875rem; font-weight: 500; }
+    .trust-item i { color: #5C2D91; margin-right: .4rem; }
+    .section { padding: 3rem 0; }
+    .section-head { text-align: center; margin-bottom: 3rem; }
+    h2 { font-size: 1.75rem; margin: 0 0 .5rem; letter-spacing: -.01em; }
+    .section-head p { color: #6b7280; max-width: 520px; margin: auto; line-height: 1.6; }
+    .steps { align-items: stretch; gap: 1.5rem; }
+    .card { flex: 1; border: 1px solid #E5E7EB; border-radius: 16px; padding: 1.5rem; background: #fff; }
+    .card-icon { color: #5C2D91; font-size: 1.25rem; margin-bottom: 1rem; }
+    .card h3 { font-size: 1rem; margin: 0 0 .5rem; }
+    .card p { color: #6b7280; font-size: .875rem; line-height: 1.65; margin: 0; }
+    .cta { background: linear-gradient(135deg, #4B2478 0%, #5C2D91 100%); border-radius: 24px; color: #fff; text-align: center; padding: 3rem 1.5rem; }
+    .cta p { color: rgba(255,255,255,.85); max-width: 460px; margin: .5rem auto 1.5rem; line-height: 1.6; }
+    footer { border-top: 1px solid #E5E7EB; padding: 1rem 0; }
+    .footer-inner { justify-content: space-between; gap: 1rem; }
+    .footer-inner img { height: 22px; }
+    @media (max-width: 768px) { .hero-grid, .steps { grid-template-columns: 1fr; display: grid; } .trust-grid { display: grid; grid-template-columns: 1fr 1fr; } .workflow { grid-template-columns: 1fr; } .rail { display: none; } .footer-inner { flex-direction: column; } }
+  </style>
 </head>
 <body>
-<div class="wrap">
-<div class="tabs" role="tablist" aria-label="Onboarding steps">
-<button class="tab" role="tab" id="t-profile" aria-controls="p-profile"><i data-i="user"></i>Basic Profile</button>
-<button class="tab" role="tab" id="t-skills" aria-controls="p-skills"><i data-i="cpu"></i>Skills &amp; Expertise</button>
-<button class="tab" role="tab" id="t-portfolio" aria-controls="p-portfolio"><i data-i="folder"></i>Portfolio</button>
-<button class="tab" role="tab" id="t-availability" aria-controls="p-availability"><i data-i="clock"></i>Availability &amp; Rates</button>
-</div>
-
-<section class="card" id="p-profile" role="tabpanel" aria-labelledby="t-profile">
-<div class="hd"><div class="ic"><i data-i="user"></i></div><div><h2>Basic Profile</h2><p>Tell us about yourself to get started</p></div></div>
-<div class="photo" id="photo"><button type="button" class="pb" aria-label="Add photo"><i data-i="camera"></i>Add Photo</button><span class="plus"><i data-i="plus"></i></span><input type="file" accept="image/*" hidden></div>
-<div class="f"><label for="fn">Full Name<b>*</b></label><input class="in" id="fn" value="North Banks"><p class="hint">This will be used for verification and contracts</p></div>
-<div class="f"><label for="dn">Display Name<b>*</b></label><input class="in" id="dn" value="NorthDev"><p class="hint">This is how clients will see you</p></div>
-<div class="f"><label for="hl">Professional Headline<b>*</b></label><input class="in" id="hl" value="AI Engineer" maxlength="80"><p class="hint"><span>Brief tagline describing your expertise</span><span id="hlc">11/80</span></p></div>
-<div class="row f"><div><label for="co">Country<b>*</b></label><select class="in" id="co"></select></div><div><label for="ci">City<b>*</b></label><input class="in" id="ci" value="Venna"></div></div>
-<div class="f" style="margin-bottom:0"><label for="tz">Timezone<b>*</b></label><select class="in" id="tz"></select><p class="hint">This helps clients understand your availability</p></div>
-<div class="ft"><button class="back" disabled><i data-i="arrow"></i>Back</button><button class="next" data-go="1">Save &amp; Continue</button></div>
-</section>
-
-<section class="card wide" id="p-skills" role="tabpanel" aria-labelledby="t-skills" hidden>
-<div class="hd"><div class="ic o"><i data-i="cpu"></i></div><div><h2>Your expertise</h2><p>Choose the work you do, the capabilities you offer, and the tools you use.</p></div></div>
-<div class="f"><label for="pf">Primary Field/Domain<b>*</b></label><select class="in" id="pf"></select></div>
-<div class="f"><label for="roles-in"><span>Job Roles You Can Work In<b>*</b></span><small>Maximum 8 roles</small></label><input class="in" id="roles-in" placeholder="Search and add roles..." list="roles-dl" autocomplete="off"><button type="button" class="sq" data-add="roles" aria-label="Add role"><i data-i="search"></i></button><div class="chips" id="roles-ch"></div></div>
-<div class="f"><label for="skills-in">Skills &amp; Proficiency<b>*</b></label><input class="in" id="skills-in" placeholder="Search skills..." list="skills-dl" autocomplete="off"><button type="button" class="sq" data-add="skills" aria-label="Add skill"><i data-i="search"></i></button><p class="cnt" id="skills-cnt"></p><div class="chips" id="skills-ch"></div></div>
-<div class="f"><label for="tools-in">Tools You Use<b>*</b></label><input class="in" id="tools-in" placeholder="Search and add tools..." list="tools-dl" autocomplete="off"><button type="button" class="sq" data-add="tools" aria-label="Add tool"><i data-i="wrench"></i></button><p class="cnt" id="tools-cnt"></p><div class="chips" id="tools-ch"></div></div>
-<div class="f" style="margin-bottom:0"><label for="yx">Years of Experience<b>*</b></label><select class="in" id="yx"></select></div>
-<div class="ft"><button class="back" data-go="-1"><i data-i="arrow"></i>Back</button><button class="next" data-go="1">Next<i data-i="chev"></i></button></div>
-</section>
-
-<section class="card" id="p-portfolio" role="tabpanel" aria-labelledby="t-portfolio" hidden>
-<div class="hd"><div class="ic"><i data-i="folder"></i></div><div><h2>Portfolio &amp; Work Samples</h2><p>Showcase your best work</p></div></div>
-<div class="lb" style="margin-bottom:8px;font-size:11.5px">Upload Work Samples</div>
-<button type="button" class="drop" id="drop"><i data-i="cloud"></i><strong>Drag &amp; drop files here or click to browse</strong>Supports: PDF, JPG, PNG, MP4</button>
-<input type="file" id="fi" accept=".pdf,.jpg,.jpeg,.png,.mp4" multiple hidden>
-<div id="files"></div>
-<div class="lhd"><span>External Portfolio Links</span><button type="button" id="addlink"><i data-i="plus"></i>Add New Item</button></div>
-<div id="links">
-<div class="lk"><div class="lb"><i data-i="github"></i>GitHub Repository</div><div class="w"><input class="in" placeholder="https://githubrepository.com/username"><a href="#" aria-label="Open link"><i data-i="ext"></i></a></div></div>
-<div class="lk"><div class="lb"><em>Be</em>Behance Portfolio</div><div class="w"><input class="in" placeholder="https://behanceportfolio.com/username"><a href="#" aria-label="Open link"><i data-i="ext"></i></a></div></div>
-<div class="lk"><div class="lb"><i data-i="dribbble"></i>Dribbble Portfolio</div><div class="w"><input class="in" placeholder="https://dribbbleportfolio.com/username"><a href="#" aria-label="Open link"><i data-i="ext"></i></a></div></div>
-</div>
-<div class="ft" style="margin-top:10px"><button class="back" data-go="-1"><i data-i="arrow"></i>Back</button><button class="next" data-go="1">Next<i data-i="chev"></i></button></div>
-</section>
-
-<section class="card" id="p-availability" role="tabpanel" aria-labelledby="t-availability" hidden>
-<div class="hd"><div class="ic"><i data-i="clock"></i></div><div><h2>Availability &amp; Rates</h2><p>Set your work preferences and pricing.</p></div></div>
-<div class="lb bd">Preferred Work Type<b>*</b></div>
-<div class="opts">
-<label class="opt"><input type="checkbox"><span><b>Hourly</b><small>Per hour basis</small></span></label>
-<label class="opt"><input type="checkbox"><span><b>Monthly</b><small>Monthly retainer</small></span></label>
-<label class="opt"><input type="checkbox"><span><b>Milestone</b><small>Project milestones</small></span></label>
-<label class="opt"><input type="checkbox"><span><b>Full Project</b><small>Complete project</small></span></label>
-</div>
-<p class="sec">Base Rates</p>
-<div class="row f"><div><label for="hr">Hourly Rate (USD)</label><div class="cur"><span>$</span><input class="in" id="hr" inputmode="decimal" value="50"></div></div><div><label for="mr">Monthly Rate (USD)</label><div class="cur"><span>$</span><input class="in" id="mr" inputmode="decimal" value="4000"></div></div></div>
-<div class="lb bd" style="margin-top:6px">Work Availability<b>*</b></div>
-<div class="opts three" style="margin-bottom:0">
-<label class="opt"><input type="radio" name="wa">Full-time</label>
-<label class="opt"><input type="radio" name="wa">Part-time</label>
-<label class="opt"><input type="radio" name="wa">Flexible</label>
-</div>
-<div class="ft"><button class="back" data-go="-1"><i data-i="arrow"></i>Back</button><button class="next" id="save">Save and Continue<i data-i="chev"></i></button></div>
-</section>
-</div>
-<div class="toast" id="toast" role="status">Profile saved</div>
-
-<script>
-var IC={user:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',cpu:'<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/>',folder:'<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',plus:'<path d="M5 12h14M12 5v14"/>',search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',wrench:'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',arrow:'<path d="m12 19-7-7 7-7M19 12H5"/>',chev:'<path d="m9 18 6-6-6-6"/>',cloud:'<path d="M12 13v8M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="m8 17 4-4 4 4"/>',img:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/>',github:'<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>',dribbble:'<circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32M8.56 2.75c4.37 6 6 9.42 8 17.72"/>',ext:'<path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'};
-function icons(r){(r||document).querySelectorAll('i[data-i]').forEach(function(e){e.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+IC[e.dataset.i]+'</svg>';e.removeAttribute('data-i')})}
-icons();
-function fill(id,list,sel){var s=document.getElementById(id);list.forEach(function(o){s.add(new Option(o,o,0,o===sel))})}
-fill('co',['Argentina','Brazil','Canada','Germany','India','Kenya','Nigeria','South Africa','United Kingdom','United States'],'Argentina');
-fill('tz',['(UTC-12:00) Baker Island','(UTC-05:00) Eastern Time (US &amp; Canada)'.replace('&amp;','&'),'(UTC-03:00) Buenos Aires','(UTC-02:00) Fernando de Noronha, South Georgia','(UTC+00:00) London, Dublin','(UTC+01:00) Lagos, West Central Africa','(UTC+05:30) Mumbai, New Delhi','(UTC+10:00) Sydney'],'(UTC-02:00) Fernando de Noronha, South Georgia');
-fill('pf',['CMS & Website Development','Mobile Development','AI & Machine Learning','UI/UX Design','Data Engineering','DevOps & Cloud'],'CMS & Website Development');
-fill('yx',['Entry-level · 0–1 years','Junior · 1–3 years','Mid-level · 3–5 years','Senior · 5–8 years','Expert · 8+ years'],'Mid-level · 3–5 years');
-
-/* tabs */
-var KEYS=['profile','skills','portfolio','availability'],cur=0;
-function show(i,push){cur=Math.max(0,Math.min(3,i));KEYS.forEach(function(k,n){var on=n===cur;document.getElementById('p-'+k).hidden=!on;var t=document.getElementById('t-'+k);t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;if(on&&push!==false)t.scrollIntoView({block:'nearest',inline:'center'})});if(push!==false&&location.hash!=='#'+KEYS[cur])history.replaceState(null,'','#'+KEYS[cur]);if(push!==false)window.scrollTo({top:0})}
-KEYS.forEach(function(k,n){var t=document.getElementById('t-'+k);t.onclick=function(){show(n)};t.onkeydown=function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){show(n+d);document.getElementById('t-'+KEYS[cur]).focus()}}});
-document.querySelectorAll('[data-go]').forEach(function(b){b.onclick=function(){show(cur+ +b.dataset.go)}});
-function fromHash(){var n=KEYS.indexOf(location.hash.slice(1));show(n<0?0:n,false)}
-window.addEventListener('hashchange',fromHash);fromHash();
-var tt;document.getElementById('save').onclick=function(){var t=document.getElementById('toast');t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},2200)};
-
-/* page 1 */
-var hl=document.getElementById('hl');hl.oninput=function(){document.getElementById('hlc').textContent=hl.value.length+'/80'};
-var ph=document.getElementById('photo'),pf=ph.querySelector('input');ph.querySelector('.pb').onclick=function(){pf.click()};
-pf.onchange=function(){var f=pf.files[0];if(f){var b=ph.querySelector('.pb');b.style.backgroundImage='url('+URL.createObjectURL(f)+')';ph.classList.add('has')}};
-
-/* page 2 */
-var POOL={roles:{max:8,dl:['Shopify Developer','Squarespace / Wix Developer','Headless CMS Developer','Webflow Developer','WordPress Developer','Drupal Developer']},skills:{max:39,lvl:1,dl:['Checkout Extensibility','CSS Customisation','Contentful','Liquid Templating','Theme Development','Sanity','Strapi','GraphQL','Custom Plugins']},tools:{max:2,dl:['Netlify','Vercel']}};
-var START={roles:['Shopify Developer','Squarespace / Wix Developer','Headless CMS Developer','Webflow Developer'],skills:['Checkout Extensibility','CSS Customisation','Contentful'],tools:['Netlify']};
-function chips(k){return document.getElementById(k+'-ch')}
-function upd(){['skills','tools'].forEach(function(k){var n=chips(k).children.length,tot=POOL[k].max;document.getElementById(k+'-cnt').textContent=(k==='skills'?'Skills':'Tools')+': '+n+' selected. '+(tot-n)+' available to choose from.'})}
-function addChip(k,text,lvl){var box=chips(k),c=document.createElement('span');c.className='chip';var t=document.createElement('span');t.textContent=text;c.append(t);
-if(POOL[k].lvl){var s=document.createElement('select');s.setAttribute('aria-label','Proficiency for '+text);['Beginner','Intermediate','Advanced','Expert'].forEach(function(o){s.add(new Option(o,o,0,o===(lvl||'Intermediate')))});c.append(s)}
-var x=document.createElement('button');x.type='button';x.textContent='×';x.setAttribute('aria-label','Remove '+text);x.onclick=function(){c.remove();upd()};c.append(x);box.append(c);upd()}
-function tryAdd(k){var inp=document.getElementById(k+'-in'),v=inp.value.trim();if(!v)return;var ex=[].some.call(chips(k).children,function(c){return c.firstChild.textContent.toLowerCase()===v.toLowerCase()});if(!ex&&chips(k).children.length<POOL[k].max)addChip(k,v);inp.value=''}
-Object.keys(POOL).forEach(function(k){var dl=document.createElement('datalist');dl.id=k+'-dl';POOL[k].dl.forEach(function(o){dl.append(new Option(o))});document.body.append(dl);START[k].forEach(function(t){addChip(k,t)});document.getElementById(k+'-in').onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();tryAdd(k)}}});
-document.querySelectorAll('[data-add]').forEach(function(b){b.onclick=function(){tryAdd(b.dataset.add)}});
-
-/* page 3 */
-var files=document.getElementById('files'),fi=document.getElementById('fi'),drop=document.getElementById('drop');
-function addFile(name,size){var d=document.createElement('div');d.className='file';d.innerHTML='<div class="th"><i data-i="img"></i></div><div class="nm"><b></b><small></small></div><span class="badge">Uploaded</span><button type="button" aria-label="Remove file">×</button>';d.querySelector('b').textContent=name;d.querySelector('small').textContent=size+' MB';d.querySelector('button').onclick=function(){d.remove()};files.append(d);icons(d)}
-addFile('Screenshot_1-11-2026_133814_zedu.chat.jpeg','0.07');
-drop.onclick=function(){fi.click()};
-fi.onchange=function(){[].forEach.call(fi.files,function(f){addFile(f.name,(f.size/1048576).toFixed(2))});fi.value=''};
-['dragover','dragenter'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('on')})});
-['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('on')})});
-drop.addEventListener('drop',function(e){[].forEach.call(e.dataTransfer.files,function(f){addFile(f.name,(f.size/1048576).toFixed(2))})});
-document.getElementById('links').addEventListener('click',function(e){var a=e.target.closest('a');if(!a)return;e.preventDefault();var v=a.previousElementSibling.value.trim();if(v)window.open(/^https?:\/\//i.test(v)?v:'https://'+v,'_blank','noopener')});
-document.getElementById('addlink').onclick=function(){var d=document.createElement('div');d.className='lk';d.innerHTML='<div class="lb"><i data-i="link"></i>Website</div><div class="w"><input class="in" placeholder="https://yourwebsite.com"><a href="#" aria-label="Open link"><i data-i="ext"></i></a></div>';document.getElementById('links').append(d);icons(d);d.querySelector('input').focus()};
-</script>
+  <header class="wp-nav"><div class="container nav-inner"><a href="#"><img class="logo" src="../fontendmain/public/CorrectLogo.png" alt="WKforce"></a><div class="nav-actions"><a class="btn btn-link" href="#">Log In</a><a class="btn btn-primary" href="#start">Get Started</a></div></div></header>
+  <main>
+    <section class="hero"><div class="container hero-grid"><div>
+      <span class="eyebrow"><i class="bi bi-stars"></i> Verified outcomes, powered by people and AI</span>
+      <h1>Get work done, <span class="accent">verified by design</span></h1>
+      <p class="sub">WKforce turns a plain-language project idea into clear work packages with acceptance criteria, matches you with the right people and AI agents, and verifies every outcome before payment — one accountable workspace from first word to final delivery.</p>
+      <div class="actions"><a class="btn btn-primary" href="#start">Get Started Free</a><a class="btn btn-outline-primary" href="#how">See how it works</a></div>
+      <p class="small">For clients, delivery talent, and professional verifiers — no credit card required to explore.</p>
+    </div><div class="preview"><div class="window"><div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="address"></span></div><div class="workflow"><div class="rail"><span></span><span></span><span></span><span></span></div><div class="work"><h3>Work package · Product brief</h3><div class="criteria"><div class="criteria-row"><span>Context understood</span><span class="verified">Verified</span></div><div class="criteria-row"><span>Acceptance criteria met</span><span class="verified">Verified</span></div><div class="criteria-row"><span>Human sign-off</span><span class="verified">Required</span></div></div></div></div></div><div class="feature"><div class="feature-title"><i class="bi bi-clipboard2-check" style="color:#5C2D91"></i> Verified outcomes</div><div class="feature-body">AI tests submitted work against the agreed criteria. Uncertain results go to a qualified human verifier.</div></div></div>
+      <div class="dots" aria-label="Feature slides"><button class="dot-button active" aria-label="Show feature 1"></button><button class="dot-button" aria-label="Show feature 2"></button><button class="dot-button" aria-label="Show feature 3"></button></div>
+    </div></div></section>
+    <section class="trust"><div class="container trust-grid"><div class="trust-item"><i class="bi bi-clipboard2-check"></i>Acceptance-led work</div><div class="trust-item"><i class="bi bi-patch-check"></i>Human verification</div><div class="trust-item"><i class="bi bi-stars"></i>AI-assisted testing</div><div class="trust-item"><i class="bi bi-shield-lock"></i>Outcome-linked escrow</div></div></section>
+    <section class="section" id="how"><div class="container"><div class="section-head"><h2>From idea to a verified outcome</h2><p>One workspace connects the work plan, acceptance criteria, verification, accountability, and escrow.</p></div><div class="steps"><article class="card"><div class="card-icon"><i class="bi bi-chat-square-text"></i></div><h3>Define the outcome</h3><p>Describe the work in plain language. WKforce turns it into a structured plan with work packages, context, and acceptance criteria.</p></article><article class="card"><div class="card-icon"><i class="bi bi-stars"></i></div><h3>Produce and test the work</h3><p>Matched talent, teams, and AI agents deliver the work. Automated checks test each submission against the agreed criteria.</p></article><article class="card"><div class="card-icon"><i class="bi bi-shield-check"></i></div><h3>Verify and release</h3><p>Low-confidence results go to a qualified human verifier. Once signed off, escrow protects the final release.</p></article></div></div></section>
+    <section class="section" id="start"><div class="container"><div class="cta"><h2>Make the outcome accountable</h2><p>Whether you need trusted work delivered or want to earn by delivering and verifying it, WKforce connects the right people to the right outcomes.</p><div class="actions" style="justify-content:center"><a class="btn btn-light" href="#">Start as a Client</a><a class="btn btn-outline-light" href="#">Join as Talent</a></div></div></div></section>
+  </main>
+  <footer><div class="container footer-inner"><div><img src="../fontendmain/public/CorrectLogo.png" alt="WKforce"></div><span class="small">© 2026 WKforce. All rights reserved.</span></div></footer>
+  <script>
+    const features = [
+      { icon: 'bi-clipboard2-check', title: 'Verified outcomes', body: 'Turn every work package into a clear, testable outcome with evidence that shows what was delivered.' },
+      { icon: 'bi-stars', title: 'AI-assisted verification', body: 'An AI classifier checks submitted work against the agreed acceptance criteria and routes uncertainty to a human verifier.' },
+      { icon: 'bi-shield-lock', title: 'Accountable delivery', body: 'Every outcome has an owner. Vale protects the engagement with escrow and human sign-off when it matters.' }
+    ];
+    const feature = document.querySelector('.feature');
+    const dots = [...document.querySelectorAll('.dot-button')];
+    let active = 0;
+    function showFeature(index) {
+      active = index;
+      const item = features[active];
+      feature.classList.remove('wp-slide');
+      void feature.offsetWidth;
+      feature.classList.add('wp-slide');
+      feature.innerHTML = '<div class="feature-content"><div class="feature-icon"><i class="bi ' + item.icon + '"></i></div><div><div class="feature-title">' + item.title + '</div><div class="feature-body">' + item.body + '</div></div></div>';
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === active));
+    }
+    dots.forEach((dot, i) => dot.addEventListener('click', () => showFeature(i)));
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => showFeature((active + 1) % features.length), 5000);
+  </script>
 </body>
 </html>
